@@ -1,0 +1,2 @@
+# smallProjects
+ˢᵐᵃˡˡ ᵖʳᵒʲᵉᶜᵗˢ
