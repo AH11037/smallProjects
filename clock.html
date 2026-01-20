@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clock made from clocks</title>
+</head>
+<style>
+    :root {
+        --backgroundColor:#603F83;
+        --handColor:#C7D3D4;
+
+    }
+    body {
+        display:flex;
+        flex-direction: column;
+        height:100vh;
+        justify-content:center;
+        background: var(--backgroundColor);
+    }
+    .mainGrid {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: nowrap;
+        gap: 10px;
+    }
+    .twoDigits {
+        display: flex;
+    }
+    .digit {
+        flex: 1 1 auto;
+        width: min(18vw, 160px);
+        aspect-ratio: 4 / 6;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(6,1fr);
+    }
+    .clockFace {
+        position: relative;
+        height: 100%;
+        width: 100%;
+        border-radius: 50%;
+        /*border: 1px solid var(--handColor);*/
+        background: transparent;
+    }
+    .clockHand {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 4px;
+        width: 50%;
+        border-radius: 50px;
+        background: var(--handColor);
+        translate: 0% -50%;
+        transform-origin: center left;
+        transition: 400ms;
+    }
+    .miniDiv {
+        display: flex;
+        flex-flow: column;
+    }
+    .colon {
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        gap: 50px;
+        height: min(18vw, 160px);
+        width: min(3vw,20px);
+        margin: 0px;
+    }
+    .dot {
+        width: 60%;
+        aspect-ratio: 1 / 1;
+        border:4px solid var(--handColor);
+        border-radius: 20%;
+    }
+</style>
+<body>
+    <!--
+    <div style="display: flex;flex-flow: row;align-self: center;align-items: centers;">
+        <div class="miniDiv">
+            <label for="inputColor1" style="color: var(--handColor);">background color</label>
+            <input type="text" id="inputColor1">
+        </div>
+        <div class="miniDiv">
+            <label for="inputColor2" style="color: var(--handColor);">hand color</label>
+            <input type="text" id="inputColor2">
+        </div>
+        <div class="miniDiv">
+            <button id="colorSubmit">Submit</button>
+        </div>
+    -->
+    </div>
+    <div class="mainGrid">
+        <div class="twoDigits">
+            <div class = "digit" id = "grid0">
+                <div class="clockFace" id="0clockFace_0">
+                    <div class = "clockHand" id = "0clockFace_hand1_0"></div>
+                    <div class = "clockHand" id = "0clockFace_hand2_0"></div>
+                </div>
+            </div>
+            <div class = "digit" id = "grid1">
+                <div class="clockFace" id="0clockFace_1">
+                    <div class = "clockHand" id = "0clockFace_hand1_1"></div>
+                    <div class = "clockHand" id = "0clockFace_hand2_1"></div>
+                </div>
+            </div>
+        </div>
+        <div class="colon">
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="twoDigits">
+            <div class = "digit" id = "grid2">
+                <div class="clockFace" id="0clockFace_2">
+                    <div class = "clockHand" id = "0clockFace_hand1_2"></div>
+                    <div class = "clockHand" id = "0clockFace_hand2_2"></div>
+                </div>
+            </div>
+            <div class = "digit" id = "grid3">
+                <div class="clockFace" id="0clockFace_3">
+                    <div class = "clockHand" id = "0clockFace_hand1_3"></div>
+                    <div class = "clockHand" id = "0clockFace_hand2_3"></div>
+                </div>
+            </div>
+        </div>
+        <div class="colon">
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="twoDigits">
+            <div class = "digit" id = "grid4">
+                <div class="clockFace" id="0clockFace_4">
+                    <div class = "clockHand" id = "0clockFace_hand1_4"></div>
+                    <div class = "clockHand" id = "0clockFace_hand2_4"></div>
+                </div>
+            </div>
+            <div class = "digit" id = "grid5">
+                <div class="clockFace" id="0clockFace_5">
+                    <div class = "clockHand" id = "0clockFace_hand1_5"></div>
+                    <div class = "clockHand" id = "0clockFace_hand2_5"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+            const angles = {
+            " ": [135, 135],
+            "┘": [180, 270],
+            "└": [0, 270],
+            "┐": [90, 180],
+            "┌": [0, 90],
+            "-": [0, 180],
+            "|": [90, 270]
+        }
+
+        const digits = {
+            "0" : [
+                "┌", "-", "-", "┐",
+                "|", "┌", "┐", "|",
+                "|", "|", "|", "|",
+                "|", "|", "|", "|",
+                "|", "└", "┘", "|",
+                "└", "-", "-", "┘",
+            ],
+            "1" : [
+                "┌", "-", "┐", " ",
+                "└", "┐", "|", " ",
+                " ", "|", "|", " ",
+                " ", "|", "|", " ",
+                "┌", "┘", "└", "┐",
+                "└", "-", "-", "┘",
+            ],
+            "2" : [
+                "┌", "-", "-", "┐",
+                "└", "-", "┐", "|",
+                "┌", "-", "┘", "|",
+                "|", "┌", "-", "┘",
+                "|", "└", "-", "┐",
+                "└", "-", "-", "┘",
+            ],
+            "3" : [
+                "┌", "-", "-", "┐",
+                "└", "-", "┐", "|",
+                " ", "┌", "┘", "|",
+                " ", "└", "┐", "|",
+                "┌", "-", "┘", "|",
+                "└", "-", "-", "┘",
+            ],
+            "4" : [
+                "┌", "┐", "┌", "┐",
+                "|", "|", "|", "|",
+                "|", "└", "┘", "|",
+                "└", "-", "┐", "|",
+                " ", " ", "|", "|",
+                " ", " ", "└", "┘",
+            ],
+
+            "5" : [
+                "┌", "-", "-", "┐",
+                "|", "┌", "-", "┘",
+                "|", "└", "-", "┐",
+                "└", "-", "┐", "|",
+                "┌", "-", "┘", "|",
+                "└", "-", "-", "┘",
+            ],
+            "6" : [
+                "┌", "-", "-", "┐",
+                "|", "┌", "-", "┘",
+                "|", "└", "-", "┐",
+                "|", "┌", "┐", "|",
+                "|", "└", "┘", "|",
+                "└", "-", "-", "┘",
+            ],
+            "7" : [
+                "┌", "-", "-", "┐",
+                "└", "-", "┐", "|",
+                " ", " ", "|", "|",
+                " ", " ", "|", "|",
+                " ", " ", "|", "|",
+                " ", " ", "└", "┘",
+            ],
+            "8" : [
+                "┌", "-", "-", "┐",
+                "|", "┌", "┐", "|",
+                "|", "└", "┘", "|",
+                "|", "┌", "┐", "|",
+                "|", "└", "┘", "|",
+                "└", "-", "-", "┘",
+            ],
+            "9" : [
+                "┌", "-", "-", "┐",
+                "|", "┌", "┐", "|",
+                "|", "└", "┘", "|",
+                "└", "-", "┐", "|",
+                "┌", "-", "┘", "|",
+                "└", "-", "-", "┘",
+            ]
+        }
+
+        for (let j = 0; j < 6; j++) {
+            for (let i = 1; i < 24; i++) {
+                let clockFace = document.getElementById("0clockFace_0")
+                let clone = clockFace.cloneNode(true)
+
+                clone.id = `${i}clockFace_${j}`
+                document.getElementById(`grid${j}`).appendChild(clone)
+
+                let cloneChild = clone.children;
+                cloneChild[0].id = `${i}clockFace_hand1_${j}`
+                cloneChild[1].id = `${i}clockFace_hand2_${j}`
+                //console.log(cloneChild);
+            }
+        }
+
+        function digitShow(digit, index) {
+            let angleArray = digits[digit];
+            angleArray.forEach((anglePair,i) => {
+                let [angle1, angle2] = angles[anglePair];
+                let hand1 = document.getElementById(`${i}clockFace_hand1_${index}`);
+                let hand2 = document.getElementById(`${i}clockFace_hand2_${index}`);
+
+                if (hand1 && hand2) {
+                    hand1.style.transform = (`rotate(${angle1}deg)`);
+                    hand2.style.transform = (`rotate(${angle2}deg)`);
+                }
+            });
+        }
+
+        setInterval(() => {
+            let hours = String(new Date().getHours()).padStart(2,"0");
+            let minutes = String(new Date().getMinutes()).padStart(2,"0");
+            let seconds = String(new Date().getSeconds()).padStart(2,"0");
+            //console.log(hours);
+            //console.log(minutes);
+            //console.log(seconds);
+
+            digitShow(hours[0],0);
+            digitShow(hours[1],1);
+            digitShow(minutes[0],2);
+            digitShow(minutes[1],3);
+            digitShow(seconds[0],4);
+            digitShow(seconds[1],5);
+        }, 500);
+    function colorUpdate() {
+        let backColor = document.getElementById("inputColor1").value
+        let handColor = document.getElementById("inputColor2").value
+
+        document.documentElement.style.setProperty("--backgroundColor",backColor);
+        document.documentElement.style.setProperty("--handColor",handColor)
+    }
+    document.getElementById("colorSubmit").addEventListener("click",colorUpdate)
+    </script>
+</body>
+</html>
