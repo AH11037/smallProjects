@@ -1,0 +1,3 @@
+/home/me/Coding/Sorter/build/CMakeFiles/Sorter.dir
+/home/me/Coding/Sorter/build/CMakeFiles/edit_cache.dir
+/home/me/Coding/Sorter/build/CMakeFiles/rebuild_cache.dir

@@ -1,0 +1,8 @@
+[
+{
+  "directory": "/home/me/Coding/Sorter/build",
+  "command": "/usr/bin/c++   -g -o CMakeFiles/Sorter.dir/main.cpp.o -c /home/me/Coding/Sorter/main.cpp",
+  "file": "/home/me/Coding/Sorter/main.cpp",
+  "output": "CMakeFiles/Sorter.dir/main.cpp.o"
+}
+]
